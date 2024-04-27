@@ -4,7 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
-
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class Handler extends ExceptionHandler
 {
     /**
@@ -34,8 +34,19 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if($request->is('api/ciudades/*')){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'La ciudad seleccionada no existe'
+                ],404);
+            }
+            if($request->is('api/eventos/*')){
+                return response()->json([
+                    'status'=>false,
+                    'message'=>'El evento seleccionado no existe'
+                ],404);
+            }
         });
     }
 }

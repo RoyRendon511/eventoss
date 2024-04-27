@@ -97,7 +97,7 @@ class EventosController extends Controller
     }
     public function eventosPorCiudad($ciudad_id)
     {
-        $eventos = Eventos::select('eventos.*', 'ciudades.ciudad as ciudad')
+        $eventos = Eventos::select('eventos.*, ciudades.ciudad as ciudad')
             ->join('ciudades', 'ciudades.id', '=', 'eventos.ciudad_id')
             ->where('ciudades.id', $ciudad_id)
             ->paginate(10);
