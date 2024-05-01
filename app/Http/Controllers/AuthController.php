@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function login(Request $request){
         $rules=[
             'email' => 'required|string|email|max:100',
-            'password'=> 'required|string|'
+            'password'=> 'required|string'
         ];
         $validator = \Validator::make($request->input(),$rules);
         if($validator->fails()){
